@@ -1,33 +1,37 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-interface TodoInputProps {
+interface TodoInputProps extends TouchableOpacityProps {
   addTask: (task: string) => void;
 }
 
-export function TodoInput({ addTask }: TodoInputProps) {
-  // const [task, setTask] = useState('');
+export function TodoInput({ addTask, ...rest }: TodoInputProps) {
+  const [task, setTask] = useState('');
 
   function handleAddNewTask() {
+    addTask(task);
+    // setTask('')
     //TODO - Call addTask if task not empty and clean input value 
   }
 
   return (
     <View style={styles.inputContainer}>
-      <TextInput 
-        style={styles.input} 
+      <TextInput
+        style={styles.input}
         placeholder="Adicionar novo todo..."
         placeholderTextColor="#B2B2B2"
         returnKeyType="send"
         selectionColor="#666666"
-        //TODO - use value, onChangeText and onSubmitEditing props
+        onChangeText={setTask}
+      // onSubmitEditing={() =>setTask('')}
+      //TODO - use value, onChangeText and onSubmitEditing props
       />
       <TouchableOpacity
         testID="add-new-task-button"
         activeOpacity={0.7}
         style={styles.addButton}
-        //TODO - onPress prop
+        onPress={handleAddNewTask}
       >
         <Icon name="chevron-right" size={24} color="#B2B2B2" />
       </TouchableOpacity>
