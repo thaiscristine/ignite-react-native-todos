@@ -15,7 +15,7 @@ export function Home() {
       done: false
     }
 
-    setTasks(oldTasks => [...oldTasks, data])
+    setTasks([...tasks, data])
   }
 
   function handleToggleTaskDone(id: number) {

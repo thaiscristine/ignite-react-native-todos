@@ -10,22 +10,25 @@ export function TodoInput({ addTask, ...rest }: TodoInputProps) {
   const [task, setTask] = useState('');
 
   function handleAddNewTask() {
-    addTask(task);
-    // setTask('')
-    //TODO - Call addTask if task not empty and clean input value 
+    if (typeof task == 'string' && task.length >= 1) {
+      addTask(task)
+      setTask('')
+    }
   }
 
   return (
     <View style={styles.inputContainer}>
       <TextInput
+        // ref={inputRef}
+        clearButtonMode="always"
         style={styles.input}
         placeholder="Adicionar novo todo..."
         placeholderTextColor="#B2B2B2"
         returnKeyType="send"
         selectionColor="#666666"
+        value={task}
         onChangeText={setTask}
-      // onSubmitEditing={() =>setTask('')}
-      //TODO - use value, onChangeText and onSubmitEditing props
+        onSubmitEditing={handleAddNewTask}
       />
       <TouchableOpacity
         testID="add-new-task-button"
