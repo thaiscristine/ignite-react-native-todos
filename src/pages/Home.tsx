@@ -17,8 +17,8 @@ export function Home() {
     const checkingTaskAlreadyAdded = tasks.find(task => task.title === newTaskTitle)
 
     if (checkingTaskAlreadyAdded) {
-      Alert.alert("Task já cadastrada", "Você não pode cadastrar uma task com o mesmo nome")
-      return
+      return Alert.alert("Task já cadastrada", "Você não pode cadastrar uma task com o mesmo nome")
+      
     }
     const data = {
       id: Math.random(),
@@ -51,10 +51,10 @@ export function Home() {
           setTasks(updatedListOfTasks);
           Alert.alert("Task removed");
         },
-        style: "cancel",
+        style: "destructive",
       }, {
         text: "Cancel",
-        // style: "cancel",
+        style: "cancel",
       }])
   }
 
@@ -62,9 +62,10 @@ export function Home() {
     const fakeTasksListData = tasks.map(tasks => ({ ...tasks }))
     const taskToEdit = fakeTasksListData.find(task => task.id === taskId)
 
-    if (taskToEdit) {
-      taskToEdit.title = taskNewTitle
+    if (!taskToEdit) {
+      return
     }
+    taskToEdit.title = taskNewTitle
 
     setTasks(fakeTasksListData)
   }
