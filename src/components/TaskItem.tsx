@@ -23,10 +23,12 @@ export function TaskItem({ task, toggleTaskDone, removeTask, editTask }: TaskIte
 
 
   function handleStartEditingTask() {
+    console.warn('Start editing')
     setTaskItemEditing(true)
   }
 
   function handleCancelEditingTask() {
+    console.warn('Editing canceled')
     setTaskItemEditing(false)
     setTaskItemReady(task.title)
   }
@@ -82,30 +84,29 @@ export function TaskItem({ task, toggleTaskDone, removeTask, editTask }: TaskIte
       <View style={styles.iconsContainer}>
         {taskItemEditing ? (
           <TouchableOpacity
-            // style={{ paddingHorizontal: 24 }}
-            onPress={() => handleCancelEditingTask}
+            onPress={handleCancelEditingTask}
           >
             <Icon name="x" size={24} color={'gray'} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={handleStartEditingTask}
-            style={{ paddingHorizontal: 24 }}
           >
             <Image source={editIcon} />
           </TouchableOpacity>
         )}
-      </View>
 
       <View style={styles.iconsDivider} />
       
       <TouchableOpacity
         disabled={taskItemEditing}
-        style={{ paddingHorizontal: 24 }}
         onPress={() => removeTask(task.id)}
       >
         <Image source={trashIcon} style={{ opacity: taskItemEditing ? 0.2 : 1 }} />
       </TouchableOpacity>
+      </View>
+
+      
     </View>
   )
 }
@@ -138,7 +139,6 @@ const styles = StyleSheet.create({
   },
   taskText: {
     color: "#666",
-    // fontFamily: theme.fonts.text500,
   },
   taskMarkerDone: {
     height: 16,
@@ -152,7 +152,6 @@ const styles = StyleSheet.create({
   taskTextDone: {
     color: "#1DB863",
     textDecorationLine: "line-through",
-    // fontFamily: theme.fonts.text500,
   },
   infoContainer: {
     flex: 1,
